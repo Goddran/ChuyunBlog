@@ -1,5 +1,6 @@
 package com.example.forum.config;
 
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,8 +9,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.annotation.Resource;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * 拦截器，资源路径配置
@@ -21,6 +25,9 @@ import java.util.Locale;
 @PropertySource(value = "classpath:application.yaml", ignoreResourceNotFound = true, encoding = "UTF-8")
 public class MvcConfig implements WebMvcConfigurer {
 
+
+    public static final String staticCdnUrl = "http://chuyun-cdn.liuyanzhao.com";
+    public static final String version = "1.0.0";
 
     /**
      * 配置静态资源路径
@@ -54,5 +61,16 @@ public class MvcConfig implements WebMvcConfigurer {
         SessionLocaleResolver slr = new SessionLocaleResolver();
         slr.setDefaultLocale(Locale.CHINA);
         return slr;
+    }
+
+
+    @Resource
+    private void configureThymeleafStaticVars(ThymeleafViewResolver viewResolver) {
+        if (viewResolver != null) {
+            Map<String, Object> vars = Maps.newHashMap();
+            vars.put("staticCdnUrl", staticCdnUrl);
+            vars.put("version", version);
+            viewResolver.setStaticVariables(vars);
+        }
     }
 }

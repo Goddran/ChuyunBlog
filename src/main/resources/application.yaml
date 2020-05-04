@@ -72,6 +72,7 @@ application:
 shiro:
   userNativeSessionManager: true
 
+# 邮箱账号
 mail:
   smtp:
     host: smtp.qq.com
