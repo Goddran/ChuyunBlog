@@ -38,4 +38,4 @@ nbdist/
 *.html
 /templates
 /webapp
-
+.zip

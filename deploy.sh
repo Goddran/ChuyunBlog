@@ -13,7 +13,7 @@ cd $SENS_DIR
 sh $SENS_DIR/bin/sens.sh stop
 
 # 执行打包
-mvn clean package -Pprod -Dmaven.test.skip=true
+mvn clean package -Dmaven.test.skip=true
 echo "代码拉取完毕！"
 
 # 进入打包好的target目录
