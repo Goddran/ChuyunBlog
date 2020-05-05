@@ -80,6 +80,5 @@ mail:
     name: Easy Java
 
 application:
-  version: 1.0.1
-#  staticCdnUrl: http://chuyun-cdn.liuyanzhao.com
+  version: 1.0.2
   staticCdnUrl:
