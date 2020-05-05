@@ -59,7 +59,7 @@ public class FrontPostController extends BaseController {
                                    @RequestParam(value = "type", defaultValue = "new") String type,
                                    @RequestParam(value = "id", required = false) Long id,
                                    @RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
-                                   @RequestParam(value = "size", defaultValue = "1") Integer pageSize) {
+                                   @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
         User loginUser = getLoginUser();
         Page<Post> postPage;
         Page page = PageUtil.initMpPage(pageNumber, pageSize, "isSticky desc, createTime", "desc");

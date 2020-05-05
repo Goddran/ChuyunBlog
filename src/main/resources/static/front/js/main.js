@@ -135,7 +135,7 @@ function loadPostList(page, type, isAppend) {
                         html += '<span class="font-success"><svg class="tt-icon"><use xlink:href="#icon-pinned"></use></svg></span>';
                     }
                     if (item.isRecommend == 1) {
-                        html += 'class="font-warning"><svg class="tt-icon"><use xlink:href="#icon-verified"></use></svg></span>';
+                        html += '<class="font-warning"><svg class="tt-icon"><use xlink:href="#icon-verified"></use></svg></span>';
                     }
                     html += item.postTitle + '' +
                         '                            </a></h6>' +

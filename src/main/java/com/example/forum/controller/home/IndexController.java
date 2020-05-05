@@ -29,7 +29,7 @@ public class IndexController extends BaseController {
 
     @GetMapping("/")
     public String index(@RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
-                        @RequestParam(value = "size", defaultValue = "1") Integer pageSize,
+                        @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
                         @RequestParam(value = "sort", defaultValue = "isSticky desc, createTime") String sort,
                         @RequestParam(value = "order", defaultValue = "desc") String order,
                         @RequestParam(value = "keywords", required = false) String keywords,
