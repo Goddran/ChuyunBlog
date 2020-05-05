@@ -59,9 +59,9 @@ public class FrontPostController extends BaseController {
                                    @RequestParam(value = "type", defaultValue = "new") String type,
                                    @RequestParam(value = "id", required = false) Long id,
                                    @RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
-                                   @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+                                   @RequestParam(value = "size", defaultValue = "1") Integer pageSize) {
         User loginUser = getLoginUser();
-        Page<Post> postPage = null;
+        Page<Post> postPage;
         Page page = PageUtil.initMpPage(pageNumber, pageSize, "isSticky desc, createTime", "desc");
         PostQueryCondition condition = new PostQueryCondition();
         if (StringUtils.isNotBlank(keywords)) {
@@ -71,7 +71,7 @@ public class FrontPostController extends BaseController {
             // 最新帖子
         } else if (HOT.equalsIgnoreCase(type)) {
             // 最热帖子
-            page = PageUtil.initMpPage(pageNumber, pageSize, "commentSize", "desc");
+            page = PageUtil.initMpPage(pageNumber, pageSize, "isSticky desc, commentSize", "desc");
         } else if (USER.equalsIgnoreCase(type)) {
             // 某个用户的
             condition.setUserId(id);

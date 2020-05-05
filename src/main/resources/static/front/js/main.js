@@ -118,23 +118,24 @@ function loadPostList(page, type, isAppend) {
                     return;
                 }
             } else {
-                if(data.result.current == data.result.pages) {
+                if (data.result.current == data.result.pages) {
                     $('#load-more-div').hide();
                     $('#no-data').show();
                 }
                 let html = '';
                 $.each(data.result.records, function (i, item) {
-                    html += '<div class="tt-item">' +
+                    var itemselect = item.isSticky == 1 ? 'tt-itemselect' : '';
+                    html += '<div class="tt-item '+itemselect+'">' +
                         '                        <div class="tt-col-avatar">' +
                         '                            <img src="' + item.user.userAvatar + '" class="avatar" alt="">' +
                         '                        </div>' +
                         '                        <div class="tt-col-description">' +
                         '                            <h6 class="tt-title"><a href="/post/' + item.id + '">';
-                    if(item.isSticky == 1) {
-                        html += '<span class="font-success">【置顶】</span>';
+                    if (item.isSticky == 1) {
+                        html += '<span class="font-success"><svg class="tt-icon"><use xlink:href="#icon-pinned"></use></svg></span>';
                     }
-                    if(item.isRecommend == 1) {
-                        html += 'class="font-warning">【推荐】</span>';
+                    if (item.isRecommend == 1) {
+                        html += 'class="font-warning"><svg class="tt-icon"><use xlink:href="#icon-verified"></use></svg></span>';
                     }
                     html += item.postTitle + '' +
                         '                            </a></h6>' +

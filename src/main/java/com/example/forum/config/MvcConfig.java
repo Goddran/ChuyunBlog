@@ -2,17 +2,18 @@ package com.example.forum.config;
 
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.annotation.Resource;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -21,13 +22,22 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.example.forum.controller")
-@PropertySource(value = "classpath:application.yaml", ignoreResourceNotFound = true, encoding = "UTF-8")
-public class MvcConfig implements WebMvcConfigurer {
+@ComponentScan(basePackages = "com.example.forum")
+@PropertySource(value = "classpath:application.yaml", encoding = "UTF-8")
+public class MvcConfig implements EnvironmentAware, WebMvcConfigurer  {
 
+    private Environment env;
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.env=environment;
+    }
 
-    public static final String staticCdnUrl = "http://chuyun-cdn.liuyanzhao.com";
-    public static final String version = "1.0.0";
+    @Value("${application.staticCdnUrl}")
+    private static String url;
+
+    @Autowired
+    private ThymeleafViewResolver viewResolver;
+
 
     /**
      * 配置静态资源路径
@@ -45,6 +55,8 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///" + System.getProperties().getProperty("user.home") + "/sens/upload/");
         registry.addResourceHandler("/favicon.ico")
                 .addResourceLocations("classpath:/static/images/favicon.ico");
+
+        configureThymeleafStaticVars(viewResolver);
     }
 
     @Override
@@ -56,20 +68,14 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowedMethods("*");
     }
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.CHINA);
-        return slr;
-    }
 
 
-    @Resource
+
     private void configureThymeleafStaticVars(ThymeleafViewResolver viewResolver) {
         if (viewResolver != null) {
             Map<String, Object> vars = Maps.newHashMap();
-            vars.put("staticCdnUrl", staticCdnUrl);
-            vars.put("version", version);
+            vars.put("staticCdnUrl", env.getProperty("application.staticCdnUrl"));
+            vars.put("version", env.getProperty("application.version"));
             viewResolver.setStaticVariables(vars);
         }
     }

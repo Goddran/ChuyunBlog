@@ -4372,8 +4372,9 @@ hr {
     #tt-header .tt-logo + * {
       margin-left: 10px; } }
   #tt-header .tt-logo img {
-    max-width: 36px;
-    height: auto; }
+    /*max-width: 36px;*/
+    /*height: auto; */
+  }
   #tt-header .tt-desktop-menu + * {
     margin-left: 36px; }
   @media (max-width: 1229px) {
@@ -4766,7 +4767,7 @@ hr {
 
 @media (max-width: 1229px) {
   .tt-user-info > *:not(:first-child) {
-    margin-left: 0px; } }
+    margin-left: 6px; } }
 
 .tt-user-info > *:not(:first-child).custom-select-01 {
   margin-left: 6px; }
@@ -5553,6 +5554,7 @@ hr {
   .tt-single-topic .tt-item-header.pt-noborder + .tt-item-description {
     padding-top: 5px; }
   .tt-single-topic .tt-item-description {
+    overflow-x: hidden;
     padding-top: 21px;
     letter-spacing: 0.01em; }
     .tt-single-topic .tt-item-description .tt-title {
