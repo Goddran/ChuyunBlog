@@ -10,6 +10,7 @@ import com.example.forum.entity.*;
 import com.example.forum.mapper.*;
 import com.example.forum.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -59,14 +60,20 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteByUserId(Long userId) {
+        List<Long> postIds = postMapper.selectIdByUserId(userId);
+        if (postIds != null && postIds.size() > 0) {
+            postTagRefMapper.deleteByPostIds(postIds);
+            postCategoryRefMapper.deleteByPostIds(postIds);
+        }
         postMapper.deleteByUserId(userId);
     }
 
     @Override
     public Page<Post> findPostByCondition(PostQueryCondition condition, Page<Post> page) {
         List<Post> postList = postMapper.findPostByCondition(condition, page);
-        for(Post post : postList) {
+        for (Post post : postList) {
             List<Tag> tagList = tagMapper.findByPostId(post.getId());
             post.setTagList(tagList);
         }

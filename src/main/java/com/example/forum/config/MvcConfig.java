@@ -32,8 +32,6 @@ public class MvcConfig implements EnvironmentAware, WebMvcConfigurer  {
         this.env=environment;
     }
 
-    @Value("${application.staticCdnUrl}")
-    private static String url;
 
     @Autowired
     private ThymeleafViewResolver viewResolver;

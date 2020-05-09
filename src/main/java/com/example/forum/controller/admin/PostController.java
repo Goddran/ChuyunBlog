@@ -213,6 +213,7 @@ public class PostController extends BaseController {
         basicCheck(post);
         post.setPostStatus(PostStatusEnum.RECYCLE.getCode());
         postService.update(post);
+
         return JsonResult.success("操作成功");
 
     }

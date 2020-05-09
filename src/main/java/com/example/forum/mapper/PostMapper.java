@@ -71,5 +71,11 @@ public interface PostMapper extends BaseMapper<Post> {
     List<Post> findPostByCondition(@Param("condition") PostQueryCondition condition, Page page);
 
 
+    /**
+     * 获取某个用户的文章列表
+     * @param userId
+     * @return
+     */
+    List<Long> selectIdByUserId(Long userId);
 }
 
