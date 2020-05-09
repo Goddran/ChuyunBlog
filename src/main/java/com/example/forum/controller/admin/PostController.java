@@ -66,7 +66,7 @@ public class PostController extends BaseController {
                         @RequestParam(value = "postSource", defaultValue = "-1") Integer postSource,
                         @RequestParam(value = "page", defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
-                        @RequestParam(value = "sort", defaultValue = "createTime") String sort,
+                        @RequestParam(value = "sort", defaultValue = "isSticky desc, createTime") String sort,
                         @RequestParam(value = "order", defaultValue = "desc") String order,
                         @ModelAttribute SearchVo searchVo) {
 
