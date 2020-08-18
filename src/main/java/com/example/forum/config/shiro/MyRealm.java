@@ -104,7 +104,7 @@ public class MyRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = (User) principals.getPrimaryPrincipal();
 
-        Role role = roleService.findByRoleId(user.getId());
+        Role role = roleService.findByUserId(user.getId());
 
         authorizationInfo.addRole(role.getRole());
         List<Permission> permissions = permissionService.listPermissionsByRoleId(role.getId());
